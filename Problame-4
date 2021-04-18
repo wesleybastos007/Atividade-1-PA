@@ -1,0 +1,88 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <iostream>
+#include <string.h>
+#include <math.h>
+using namespace std;
+
+int calc(int num1, int num2, char op){
+	int resul;
+	
+	switch(op){
+		case '+':
+			resul = num1 + num2;
+			break;
+		case '-':
+			resul = num1 - num2;
+			break;
+		case '*':
+			resul = num1 * num2;
+			break;
+		case '/':
+			resul = num1 * num2;
+			break;
+		case '%':
+			resul = num1 % num2;
+			break;
+		default:
+			cout<<"Operador Invalido";
+	}
+	return resul;
+}
+
+int convBinDec(char *bin){
+	int i, tam, novoValor = 0;
+	tam = strlen(bin); 	
+	for (i = tam-1; i >= 0; i--) {
+		if (bin[i] == '1') {
+			novoValor += pow(2,tam-1-i);
+		}
+	}
+	return novoValor;
+}
+
+char * convDecBin(int num){
+	char resul[10] = "", *resultado = (char*) malloc(10 * sizeof(char));
+	int aux = num;
+	int i = 0, j;
+	while(aux!=0){
+		if(aux % 2 == 0) resul[i] = '0';
+		else resul[i] = '1';
+		aux = aux / 2;
+		i++;
+	}
+	i = strlen(resul);
+	j=0;
+	for(i = i-1; i >= 0; i--){
+		resultado[j] = resul[i];
+		j++;
+	}
+	resultado[j] = '\0';
+	return resultado;
+}
+
+
+int main(){
+	char operador;
+	char bin1[10], bin2[10], *resultado;
+	int dec1, dec2, resul;
+	
+	cout<<"Digite o operador:"<<endl;
+	cin>>operador;
+
+	cout<<"Digite o primeiro numero:"<<endl;
+	cin>>bin1;
+	
+	cout<<"Digite o segundo numero:"<<endl;
+	cin>>bin2;
+
+	dec1 = convBinDec(bin1);
+	dec2 = convBinDec(bin2);
+
+	resul = calc(dec1, dec2, operador);
+	
+	resultado = convDecBin(resul);
+	
+	cout<<"RESPOSTA = "<<resultado;
+	return 0;
+}
